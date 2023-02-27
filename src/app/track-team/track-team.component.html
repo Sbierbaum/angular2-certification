@@ -1,0 +1,14 @@
+<div style="margin-top: 2%;">
+  <mat-form-field appearance="fill">
+    <mat-label>Select a team</mat-label>
+    <mat-select id="teamSelect" [(value)]="selectedTeam">
+      <mat-option>None</mat-option>
+        <mat-option [value]="team" *ngFor="let team of teams">{{ team.full_name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-button id="trackBtn" (click)="trackTeam()" color="primary">Track team</button>
+</div>
+
+<div class="tracked-team-list">
+  <app-card-team class="tracked-team-card" *ngFor="let trackedTeam of trackedTeams" [team]="trackedTeam"></app-card-team>
+</div>

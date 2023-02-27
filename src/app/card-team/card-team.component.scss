@@ -1,0 +1,21 @@
+.results-12-days{
+  display: flex;
+}
+
+.match-result-icon{
+  border-radius: 50%;
+  padding: 3px;
+  margin: 2%;
+
+  &.match-win{
+    background-color: green;
+  }
+
+  &.match-lose{
+    background-color: red;
+  }
+}
+
+.average-label{
+  display: block;
+}
