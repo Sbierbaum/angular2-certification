@@ -7,7 +7,7 @@ export class ApiInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
 
     // Clone the request and replace the original headers with
-    // cloned headers, updated with the authorization.
+    // cloned headers, updated with the headers mandatory to access nba api.
     const authReq = req.clone({
       url: `https://free-nba.p.rapidapi.com/${req.url}`,
       headers: req.headers.set('X-RapidAPI-Key', '2QMXSehDLSmshDmRQcKUIAiQjIZAp1UvKUrjsnewgqSP6F5oBX')

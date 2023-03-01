@@ -10,5 +10,5 @@
 </div>
 
 <div class="tracked-team-list">
-  <app-card-team class="tracked-team-card" *ngFor="let trackedTeam of trackedTeams" [team]="trackedTeam"></app-card-team>
+  <app-card-team class="tracked-team-card" *ngFor="let trackedTeam of trackedTeams" [team]="trackedTeam" (untrackTeamEvent)="untrackTeam($event)"></app-card-team>
 </div>

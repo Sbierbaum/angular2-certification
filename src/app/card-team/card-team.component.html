@@ -2,21 +2,31 @@
   <mat-card-header>
     <mat-card-title-group>
       <mat-card-title>{{team?.full_name}} [{{team?.abbreviation}}]</mat-card-title>
-      <mat-card-subtitle>{{team?.conference}} conference</mat-card-subtitle>
-      <img mat-card-sm-image [src]="imageSrc">
+      <mat-card-subtitle>{{team?.conference | addErn}} conference</mat-card-subtitle>
     </mat-card-title-group>
+    <button mat-icon-button id="{{'remove'+ team?.abbreviation}}" (click)="untrackTeam()">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-card-header>
-  <mat-card-content>
-    <label>Results of past 12 days : </label>
-    <div class="results-12-days">
-      <label [ngClass]="{
-                          'match-result-icon': true,
-                          'match-win': game.isWon,
-                          'match-lose': !game.isWon
-                        }"
-      *ngFor="let game of games">{{game.isWon ? 'W' : 'L'}}</label>
+  <mat-card-content class="card-team-result">
+    <div class="results-zone">
+      <label>Results of past 12 days : </label>
+      <div class="results-12-days">
+        <label [ngClass]="{
+          'match-result-icon': true,
+          'match-win': game.isWon,
+          'match-lose': !game.isWon
+        }"
+        *ngFor="let game of games">{{game.isWon ? 'W' : 'L'}}</label>
+      </div>
+      <label class="average-label">Avg pts scored: <span class="bold-text">{{averagePointsScored}}</span></label>
+      <label class="average-label">Avg pts conceded: <span class="bold-text">{{averagePointsConceded}}</span></label>
     </div>
-    <label class="average-label">Avg pts scored: <strong>{{averagePointsScored}}</strong></label>
-    <label class="average-label">Avg pts conceded: <strong>{{averagePointsConceded}}</strong></label>
+    <div class="team-logo">
+      <img mat-card-sm-image [src]="imageSrc">
+    </div>
   </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button [routerLink]="'/results/'+team?.abbreviation" [state]="{ team , games}" color="primary" id="{{'results'+ team?.abbreviation}}">See game results > ></button>
+  </mat-card-actions>
 </mat-card>

@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Game } from '../core/models/game';
 import { Team } from '../core/models/team';
-import { TeamService } from '../team.service';
+import { GameService } from '../game.service';
 
 @Component({
   selector: 'app-card-team',
@@ -12,6 +12,9 @@ export class CardTeamComponent {
   @Input()
   team?: Team;
 
+  @Output()
+  untrackTeamEvent = new EventEmitter<number>();
+
   imageSrc : string = '';
 
   games: Game[] = [];
@@ -19,13 +22,12 @@ export class CardTeamComponent {
   averagePointsScored: number = 0;
   averagePointsConceded: number = 0;
 
-  constructor(private teamService: TeamService){}
-
+  constructor(private gameService: GameService){}
 
   ngOnInit(): void {
     this.imageSrc = `https://interstate21.com/nba-logos/${this.team?.abbreviation}.png`;
     if(this.team !== undefined){
-      this.teamService.getLastXDaysResultsByTeam(this.team?.id)
+      this.gameService.getLastXDaysResultsByTeam(this.team?.id)
           .subscribe((games: Game[]) => {
             this.games = games;
             this.calculateWins();
@@ -34,7 +36,11 @@ export class CardTeamComponent {
     }
   }
 
-  calculatePoints(): void{
+  untrackTeam(){
+    this.untrackTeamEvent.emit(this.team?.id);
+  }
+
+  private calculatePoints(): void{
     const numberOfGames = this.games.length;
     let totalScored = 0;
     let totalConceded = 0;
@@ -55,7 +61,7 @@ export class CardTeamComponent {
     this.averagePointsConceded = Math.ceil(totalConceded / numberOfGames);
   }
 
-  calculateWins(): void{
+  private calculateWins(): void{
     for(let i = 0; i < this.games.length; i ++){
       let currentGame = this.games[i];
       if(currentGame.home_team.id === this.team?.id){

@@ -10,8 +10,8 @@ import { Team } from '../core/models/team';
 })
 export class TrackTeamComponent {
   teams: Team[] = [];
-  selectedTeam?: Team = undefined;
-  trackedTeams?: Team[] = [];
+  selectedTeam?: Team;
+  trackedTeams: Team[] = [];
 
   constructor(private teamService: TeamService){
 
@@ -29,17 +29,21 @@ export class TrackTeamComponent {
   trackTeam(): void {
     if(this.selectedTeam?.id !== undefined){
       if(!this.isTeamTracked()){
-        this.trackedTeams?.push(this.selectedTeam);
+        this.trackedTeams.push(this.selectedTeam);
       }
     }
   }
 
-  private isTeamTracked(){
-    if(this.selectedTeam !== undefined){
-      return this.trackedTeams?.includes(this.selectedTeam);
+  untrackTeam(teamId: number): void{
+    if(this.trackedTeams.length > 0){
+      this.trackedTeams.splice(
+        this.trackedTeams.findIndex((team) => {
+          return team.id === teamId;
+      }), 1);
     }
-    else{
-      return false;
-    }
+  }
+
+  private isTeamTracked(): boolean {
+    return this.selectedTeam !== undefined && this.trackedTeams.includes(this.selectedTeam);
   }
 }

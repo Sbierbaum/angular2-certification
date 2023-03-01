@@ -1,0 +1,27 @@
+<div class="game-results">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{team?.full_name}} [{{team?.abbreviation}}]</mat-card-title>
+        <mat-card-subtitle>{{team?.conference | addErn}} conference</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content class="card-team-result">
+      <div class="results-zone">
+        <label>Scores of past 12 days : </label>
+        <div class="results-12-days">
+          <label class="label-result" *ngFor="let game of games">
+            <span class="bold-text score-result">{{ game.home_team.abbreviation }}</span>
+            <span>{{ game.home_team_score }}</span>
+            -
+            <span>{{ game.visitor_team_score }}</span>
+            <span class="bold-text score-result">{{ game.visitor_team.abbreviation }}</span>
+          </label>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button [routerLink]="'/'" color="primary" id="backBtn">< < Back to all team stats</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

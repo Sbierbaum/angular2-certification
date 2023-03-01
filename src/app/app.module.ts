@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 
 
 import { AppComponent } from './app.component';
@@ -14,13 +15,17 @@ import { HomeComponent } from './home/home.component';
 import { httpInterceptorProviders } from './http-interceptors';
 import { CardTeamComponent } from './card-team/card-team.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GameResultsComponent } from './game-results/game-results.component';
+import { AddErnPipe } from './add-ern.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     TrackTeamComponent,
     HomeComponent,
-    CardTeamComponent
+    CardTeamComponent,
+    GameResultsComponent,
+    AddErnPipe
   ],
   imports: [
     BrowserModule,
@@ -29,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSelectModule,
     MatButtonModule,
     MatCardModule,
+    MatIconModule,
     BrowserAnimationsModule,
   ],
   providers: [
