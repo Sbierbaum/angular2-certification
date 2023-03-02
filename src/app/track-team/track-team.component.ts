@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TeamService } from '../team.service';
 import { Team } from '../core/models/team';
+import { DataSavingService } from '../data-saving.service';
 
 
 @Component({
@@ -13,12 +14,17 @@ export class TrackTeamComponent {
   selectedTeam?: Team;
   trackedTeams: Team[] = [];
 
-  constructor(private teamService: TeamService){
+  constructor(private teamService: TeamService, private dataSavingService: DataSavingService){
 
   }
 
   ngOnInit(): void {
     this.getTeams();
+    this.trackedTeams = this.dataSavingService.trackedTeams;
+  }
+
+  ngOnDestroy(): void {
+    this.dataSavingService.trackedTeams = this.trackedTeams;
   }
 
   getTeams(): void {
@@ -44,6 +50,7 @@ export class TrackTeamComponent {
   }
 
   private isTeamTracked(): boolean {
-    return this.selectedTeam !== undefined && this.trackedTeams.includes(this.selectedTeam);
+    return this.selectedTeam !== undefined && this.trackedTeams.findIndex((team) => {
+      return team.id === this.selectedTeam?.id}) >= 0;
   }
 }
